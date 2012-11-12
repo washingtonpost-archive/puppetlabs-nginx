@@ -10,9 +10,7 @@
 #   [*index_files*] - Default index files for NGINX to read when traversing a directory
 #   [*proxy*]       - Proxy server(s) for a location to connect to. Accepts a single value, can be used in conjunction
 #                     with nginx::resource::upstream
-#   [*proxy_read_timeout*] - Override the default the proxy read timeout value of 90 seconds
 #   [*ssl*]         - Indicates whether to setup SSL bindings for this location.
-#   [*try_files*]   - An array of file locations to try
 #   [*option*]      - Reserved for future use
 #
 # Actions:
@@ -27,15 +25,15 @@
 #    vhost    => 'test2.local',
 #  }
 define nginx::resource::location(
-  $ensure             = present,
-  $vhost              = undef,
-  $www_root           = undef,
-  $index_files        = ['index.html', 'index.htm', 'index.php'],
-  $proxy              = undef,
-  $proxy_read_timeout = $nginx::params::nx_proxy_read_timeout,
-  $ssl                = false,
-  $try_files          = undef,
-  $option             = undef,
+  $ensure      = present,
+  $vhost       = undef,
+  $www_root    = undef,
+  $index_files = ['index.html', 'index.htm', 'index.php'],
+  $proxy       = undef,
+  $uwsgi       = false,
+  $ssl         = false,
+  $option      = undef,
+  $is_alias    = false,
   $location
 ) {
   File {
@@ -54,11 +52,13 @@ define nginx::resource::location(
   # Use proxy template if $proxy is defined, otherwise use directory template.
   if ($proxy != undef) {
     $content_real = template('nginx/vhost/vhost_location_proxy.erb')
+  } elsif ($is_alias == true) {
+    $content_real = template('nginx/vhost/vhost_location_alias.erb')
   } else {
     $content_real = template('nginx/vhost/vhost_location_directory.erb')
   }
 
-  ## Check for various error condtiions
+  ## Check for various error conditions
   if ($vhost == undef) {
     fail('Cannot create a location reference without attaching to a virtual host')
   }

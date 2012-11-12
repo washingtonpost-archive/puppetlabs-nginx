@@ -11,6 +11,7 @@ events {
 
 http {
   include       /etc/nginx/mime.types;
+  include       /etc/nginx/uwsgi_params;
   default_type  application/octet-stream;
 
   access_log  <%= scope.lookupvar('nginx::params::nx_logdir')%>/access.log;
@@ -24,7 +25,7 @@ http {
   keepalive_timeout  <%= scope.lookupvar('nginx::params::nx_keepalive_timeout')%>;
   tcp_nodelay        <%= scope.lookupvar('nginx::params::nx_tcp_nodelay')%>;
 
-  <% if scope.lookupvar('nginx::params::nx_gzip' == 'on') %> 
+  <% if scope.lookupvar('nginx::params::nx_gzip' == 'on') %>
   gzip         on;
   gzip_disable "MSIE [1-6]\.(?!.*SV1)";
   <% end %>

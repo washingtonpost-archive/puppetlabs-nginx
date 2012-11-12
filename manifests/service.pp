@@ -21,9 +21,8 @@ class nginx::service {
   }
   service { "nginx":
     ensure     => running,
-    enable     => true,
+    enable	   => true,
     hasstatus  => true,
     hasrestart => true,
-    subscribe  => Exec['rebuild-nginx-vhosts'],
   }
 }
