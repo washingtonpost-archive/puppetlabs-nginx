@@ -15,14 +15,14 @@
 # This class file is not called directly
 class nginx::package::debian {
   exec { 'add_latest_nginx_pkg':
-    command => 'add-apt-repository ppa:nginx/stable',
+    command => '/usr/bin/add-apt-repository ppa:nginx/stable',
   }
-  exec {'update_apt_for_ngninx_pkg':
-    command => 'apt-get update',
+  exec {'update_apt_for_ngnix_pkg':
+    command => '/usr/bin/apt-get update',
     require => Exec['add_latest_nginx_pkg'],
   }
   package { 'nginx':
     ensure => present,
-    require => Exec['update_apt_for_ngninx_pkg'],
+    require => Exec['update_apt_for_ngnix_pkg'],
   }
 }
