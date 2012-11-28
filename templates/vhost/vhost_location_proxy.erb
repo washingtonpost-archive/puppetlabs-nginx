@@ -5,7 +5,6 @@
     uwsgi_modifier1 30;
     uwsgi_pass <%= proxy %>;
     <% else %>proxy_pass <%= proxy %>;<% end %>
-    <% additional_options.each do |i| %>
-    <%= i %>;
+    <% additional_options.each do |i| %><%= i %>;
     <% end %>
   }
