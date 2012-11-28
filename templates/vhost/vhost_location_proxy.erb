@@ -1,11 +1,10 @@
+
   location <%= location %>/ {
-    <% if uwsgi %>
-    include /etc/nginx/uwsgi_params;
+    <% if uwsgi %>include /etc/nginx/uwsgi_params;
     uwsgi_param SCRIPT_NAME <%= location %>;
     uwsgi_modifier1 30;
     uwsgi_pass <%= proxy %>;
-    <% else %>proxy_pass <%= proxy %>;
-    <% end %>
+    <% else %>proxy_pass <%= proxy %>;<% end %>
     <% additional_options.each do |i| %>
     <%= i %>;
     <% end %>
