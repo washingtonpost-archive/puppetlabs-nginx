@@ -1,5 +1,5 @@
 
-  location <%= location %>/ {
+  location <%= location %> {
     <% if uwsgi %>include /etc/nginx/uwsgi_params;
     uwsgi_param SCRIPT_NAME <%= location %>;
     uwsgi_modifier1 30;
