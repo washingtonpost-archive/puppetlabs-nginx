@@ -34,7 +34,7 @@ define nginx::resource::location(
   $ssl         = false,
   $option      = undef,
   $is_alias    = false,
-  $additional_options = undef,
+  $additional_options = [],
   $location
 ) {
   File {

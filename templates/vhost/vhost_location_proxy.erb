@@ -7,10 +7,8 @@
     uwsgi_pass <%= proxy %>;
     <% else %>proxy_pass <%= proxy %>;
     <% end %>
-    <% if additional_options %>
     <% additional_options.each do |i| %>
     <%= i %>;
-    <% end %>
     <% end %>
   }
 
