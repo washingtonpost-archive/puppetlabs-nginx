@@ -35,6 +35,7 @@ define nginx::resource::location(
   $option      = undef,
   $is_alias    = false,
   $additional_options = [],
+  $uwsgi_params = [],
   $location
 ) {
   File {
