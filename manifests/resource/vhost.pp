@@ -44,6 +44,7 @@ define nginx::resource::vhost(
   $uwsgi            = false,
   $index_files      = ['index.html', 'index.htm', 'index.php'],
   $www_root         = undef,
+  $additional_options = [],
   $location         = '/'
 ) {
 
@@ -86,6 +87,7 @@ define nginx::resource::vhost(
     proxy    => $proxy,
     uwsgi    => $uwsgi,
     www_root => $www_root,
+    additional_options => $additional_options,
     notify   => Class['nginx::service'],
   }
 
