@@ -19,7 +19,7 @@ class nginx::package::debian {
   }
 
   exec { 'add_latest_nginx_pkg':
-    command => 'add-apt-repository ppa:nginx/stable',
+    command => '/usr/bin/add-apt-repository ppa:nginx/stable',
     require => Package['python-software-properties'],
   }
 
