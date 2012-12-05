@@ -14,15 +14,22 @@
 #
 # This class file is not called directly
 class nginx::package::debian {
+  package {'python-software-properties':
+    ensure => present,
+  }
+
   exec { 'add_latest_nginx_pkg':
-    command => 'add-apt-repository ppa:nginx/stable'
+    command => 'add-apt-repository ppa:nginx/stable',
+    require => Package['python-software-properties'],
   }
+
   exec {'update_apt_for_ngninx_pkg':
-    command => 'apt-get update'
-    require => Exec['add_latest_nginx_pkg']
+    command => 'apt-get update',
+    require => Exec['add_latest_nginx_pkg'],
   }
+
   package { 'nginx':
     ensure => present,
-    require => Exec['update_apt_for_ngninx_pkg']
+    require => Exec['update_apt_for_ngninx_pkg'],
   }
 }
