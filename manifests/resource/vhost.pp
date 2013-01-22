@@ -45,6 +45,7 @@ define nginx::resource::vhost(
   $index_files      = ['index.html', 'index.htm', 'index.php'],
   $www_root         = undef,
   $additional_options = [],
+  $vhost_options      = [],
   $location         = '/'
 ) {
 
